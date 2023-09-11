@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeCraft</title>
+    <link rel="stylesheet" href="style.css" />
+    <script
+      src="https://kit.fontawesome.com/c4254e24a8.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/ace-builds@1.24.2/css/ace.min.css"
+      rel="stylesheet"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: "Poppins", sans-serif;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #000707e5;
+        color: #fff;
+      }
+
+      .container {
+        width: 100%;
+        height: 90vh;
+        padding: 10px 20px;
+        display: flex;
+      }
+
+      .left {
+        flex-basis: 40%;
+        padding: 10px;
+      }
+
+      .right {
+        flex-basis: 60%;
+        padding: 10px;
+      }
+
+      .txt {
+        width: 100%;
+        height: 27%;
+        font-size: 16px;
+        font-family: "times new roman";
+        border: 0;
+        outline: 2px solid black;
+        margin-bottom: 2%;
+      }
+
+      iframe {
+        width: 100%;
+        height: 94.5%;
+        background: #ffffff;
+        border: 0;
+        outline: 2px solid black;
+      }
+
+      label i {
+        margin-left: 10px;
+        margin-right: 10px;
+      }
+
+      label {
+        display: flex;
+        background-color: #000000;
+        align-items: center;
+        height: 30px;
+        outline: 2px solid black;
+      }
+      .heading{
+        background-color: #000000;
+        font-size: 35px;
+        padding: 10px 40px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="heading"> 🚀 CodeCraft</div>
+    <div class="container">
+      
+      <div class="left">
+        <label><i class="fa-brands fa-html5"></i> HTML</label>
+        <div class="txt" id="html-code" onkeyup="run()"></div>
+
+        <label><i class="fa-brands fa-css3-alt"></i> CSS</label>
+        <div class="txt" id="css-code" onkeyup="run()"></div>
+
+        <label><i class="fa-brands fa-js"></i> JavaScript</label>
+        <div class="txt" id="js-code" onkeyup="run()"></div>
+      </div>
+      <div class="right">
+        <label><i class="fa-solid fa-play"></i> OUTPUT</label>
+        <iframe id="output"></iframe>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/ace-builds@1.24.2/src-min-noconflict/ace.min.js"></script>
+    <script>
+      let editorhtml = ace.edit("html-code");
+      let editorcss = ace.edit("css-code");
+      let editorjs = ace.edit("js-code");
+
+      editorhtml.setTheme("ace/theme/cobalt");
+      editorcss.setTheme("ace/theme/cobalt");
+      editorjs.setTheme("ace/theme/cobalt");
+
+      editorhtml.session.setMode("ace/mode/html");
+      editorcss.session.setMode("ace/mode/css");
+      editorjs.session.setMode("ace/mode/javascript");
+
+      function run() {
+        let html_code = editorhtml.getValue();
+        let css_code = editorcss.getValue();
+        let js_code = editorjs.getValue();
+        let output = document.getElementById("output");
+
+        output.contentDocument.body.innerHTML =
+          html_code + "<style>" + css_code + "</style>";
+        output.contentWindow.eval(js_code);
+      }
+    </script>
+  </body>
+</html>
